@@ -2,13 +2,17 @@ const jwt = require('jsonwebtoken');
 
 const JWT_SECRET_PASS = process.env.JWT_SECRET || 'inuyasha';
 
-const generateToken = (payload) => {
+const generateToken = (userData) => {
   const jwtConfig = {
     expiresIn: '5m',
     algorithm: 'HS256',
   };
 
-  return jwt.sign(payload.dataValues, JWT_SECRET_PASS, jwtConfig);
+  const payload = {
+    userData,
+  };
+
+  return jwt.sign(payload, JWT_SECRET_PASS, jwtConfig);
 };
 
 const authenticateToken = (token) => {
