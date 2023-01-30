@@ -6,6 +6,9 @@ const newUser = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
+const newCategory = Joi.string().min(1).required();
+
 module.exports = {
   newUser,
+  newCategory,
 };
