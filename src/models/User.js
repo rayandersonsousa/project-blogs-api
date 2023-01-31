@@ -1,3 +1,5 @@
+const { post } = require("frisby");
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     id: {
@@ -16,6 +18,13 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true,
     tableName: 'users',
   });
+
+  User.associate = (models) => {
+    User.hasMany(models.BlogPost, {
+      as: 'posts',
+      foreignKey: 'id',
+    });
+  };
 
   return User;
 };
