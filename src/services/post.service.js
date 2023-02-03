@@ -26,6 +26,19 @@ const addPost = async (title, content, email, categoryIds = []) => {
   return { type: null, message: newPost };
 };
 
+const getAll = async () => {
+  const posts = await BlogPost.findAll({
+    attributes: { exclude: ['userId'] },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  return posts;
+};
+
 module.exports = {
   addPost,
+  getAll,
 };
