@@ -1,4 +1,4 @@
-const { authenticateToken } = require('../utils/jwt');
+const { authenticateToken, dataFromToken } = require('../utils/jwt');
 
 const validateToken = (req, res, next) => {
   const { authorization } = req.headers;
@@ -12,6 +12,10 @@ const validateToken = (req, res, next) => {
   if (message) {
     return res.status(401).json({ message: 'Expired or invalid token' });
   }
+
+  const email = dataFromToken(authorization);
+
+  req.email = email;
 
   return next();
 };

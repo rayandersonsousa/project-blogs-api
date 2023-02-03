@@ -24,7 +24,19 @@ const authenticateToken = (token) => {
   }
 };
 
+const dataFromToken = (token) => {
+  try {
+    const result = jwt.verify(token, JWT_SECRET_PASS);
+    const { email } = result.userData;
+    console.log(email);
+    return email;
+  } catch (err) {
+    return { type: 401, message: 'Invalid Token' };
+  }
+};
+
 module.exports = {
   generateToken,
   authenticateToken,
+  dataFromToken,
 };
